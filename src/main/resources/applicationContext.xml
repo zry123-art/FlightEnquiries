@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+
+">
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <!-- 数据库驱动 -->
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <!-- 链接数据库的url -->
+        <property name="url" value="jdbc:mysql://localhost:3306/test?characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=UTC&amp;rewriteBatchedStatements=true"/>
+        <!-- 链接数据库的用户名 -->
+        <property name="username" value="root"/>
+        <!-- 链接数据库的密码 -->
+        <property name="password" value="198218"/>
+    </bean>
+
+    <!-- 配置JDBC模板 -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <!-- 默认必须使用数据源 -->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 定义一个为aircraft的Bean -->
+    <bean id="aircraftDao" class="com.ay.dao.AircraftDaoImpl">
+        <!-- 将jdbcTemplate注入到aircraft实例中 -->
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
+    <!-- 扫描com.ay下的所有注解 -->
+    <context:component-scan base-package="com.ay"/>
+
+</beans>

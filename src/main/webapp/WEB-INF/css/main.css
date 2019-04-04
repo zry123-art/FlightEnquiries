@@ -1,0 +1,37 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{   
+    background-color: #4A374A;   
+}
+
+.main{
+    width: 300px;
+    height: 300px;
+    position:absolute;
+    left:0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+
+.sousuo{
+    width: 80px;
+    height: 25px;
+    margin-top: 30px;
+    margin-left: 100px;
+
+    font-size: 13px;   
+    color: rgba(109, 100, 100, 0.993);   
+    text-shadow:1px 1px 1px;   
+    border-top: 1px solid #312E3D;   
+    border-left: 1px solid #312E3D;   
+    border-right: 1px solid #312E3D;   
+    border-bottom: 1px solid #56536A;   
+    border-radius: 4px;
+    outline:none;    
+    background-color: #2D2D3F; 
+}

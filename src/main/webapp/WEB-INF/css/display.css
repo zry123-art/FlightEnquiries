@@ -1,0 +1,24 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{   
+    background-color: rgba(212, 241, 172, 0.918);   
+}
+
+.display{
+    width: 1000px;
+    height: 300px;
+    position:absolute;
+    left:0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+
+.zuo{
+    margin-left: 120px;
+}
+
