@@ -29,9 +29,11 @@
 
         <a class="zuo">到达地点:</a> <input class="input_5" name="dao_da_di_dian" type="text" value="${aerodromeOfLanding}"/>
 
-        日期时间: <input class="input_6" name="ri_qi" type="text" value="${price}"/>
+        价格: <input class="input_7" name="price" type="text" value="${price}"/>
 
-        价格: <input class="input_7" name="price" type="text" value="${dateOfDeparture}"/>
+        日期时间: <input class="input_6" name="ri_qi" type="text" value="${dateOfDeparture}"/>
+
+
 
     &nbsp;&nbsp;&nbsp;&nbsp;${error_one}
         <button class="sousuo" type="submit">返回主页</button>
