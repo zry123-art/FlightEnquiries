@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import java.util.ArrayList;
 
 /**
  * @author yt
@@ -22,7 +21,6 @@ public class AircraftDaoImpl implements AircraftDao {
 
     @Override
     public Aircraft flightEnquiry(String takeOffAirport, String aerodromeOfLanding) {
-        ArrayList<Aircraft> FlightCollection = new ArrayList<Aircraft>();
 
         //定义SQL语句
         String sql = "select * from aircraft where TakeOffAirport=? and AerodromeOfLanding=?";

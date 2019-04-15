@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AircraftMapper.xml">
+    <!-- resultType指返回数据的类型，不是整体数据的类型，所以这里不能用list -->
+    <select id="flightEnquiry" parameterType="String" resultType="com.ay.domain.Aircraft">
+        <!-- 查询出指定出发地的航班信息 #{0}#{1}里面的0和1对应map集合里的键值-->
+        select * from aircraft where TakeOffAirport=#{0} and AerodromeOfLanding=#{1}
+    </select>
+</mapper>

@@ -4,6 +4,11 @@ package com.ay.controller;
 import com.ay.dao.AircraftDao;
 import com.ay.domain.Aircraft;
 import com.ay.service.AircraftServiceImpl;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -11,6 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -24,7 +34,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value = "/")
 public class AircraftController {
-    AircraftServiceImpl aircraftService = new AircraftServiceImpl();
     private Aircraft xinXi;
 
 
@@ -77,15 +86,66 @@ public class AircraftController {
         return "display";
     }
 
+
+    /**
+     * 使用mybatis的方法类查询航班信息
+     * @param model
+     * @param aircraft
+     * @return
+     * @throws IOException
+     */
     @Test
-    public void text(){
-        //加载配置文件
+    @RequestMapping("/queryResultsMapper")
+    public String queryResultsMapper(Model model,Aircraft aircraft) throws IOException {
+        //取出查询的出发点和到达点
+        String chu_fa_dian = aircraft.getTakeOffAirport();
+        String dao_da_dian = aircraft.getAerodromeOfLanding();
+        //用mybatis的方法来查询航班信息
+        InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        Map<String,Object> parameters=new HashMap<String, Object>();
+        parameters.put("0",chu_fa_dian);
+        parameters.put("1",dao_da_dian);
+        Aircraft result =  sqlSession.selectOne("AircraftMapper.xml.flightEnquiry",parameters);
+
+        if (result == null){
+            model.addAttribute("error_one","非常抱歉!无此航班信息");
+        }else {
+            //传值到页面
+            model.addAttribute("flightNumber",xinXi.getFlightNumber());
+            model.addAttribute("takeOffTime",xinXi.getTakeOffTime());
+            model.addAttribute("landingTime",xinXi.getLandingTime());
+            model.addAttribute("takeOffAirport",xinXi.getTakeOffAirport());
+            model.addAttribute("aerodromeOfLanding",xinXi.getAerodromeOfLanding());
+            model.addAttribute("price",xinXi.getPrice());
+            model.addAttribute("dateOfDeparture",xinXi.getDateOfDeparture());
+        }
+        return "display";
+    }
+
+
+
+
+    @Test
+    public void text() throws IOException {
+/*        //加载配置文件
         ApplicationContext applicationContext =
                 new ClassPathXmlApplicationContext("applicationContext.xml");
         AircraftDao aircraftDao = (AircraftDao) applicationContext.getBean("aircraftDao");
-        xinXi = aircraftDao.flightEnquiry("双流国际机场","北京国际机场");
+        xinXi = aircraftDao.flightEnquiry("双流国际机场","北京国际机场");*/
+        //读取配置文件
+
+
+        //用mybatis的方法来查询航班信息
+/*        InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        Map<String,Object> parameters=new HashMap<String, Object>();
+        parameters.put("0","双流国际机场");
+        parameters.put("1","北京国际机场");
+         xinXi = sqlSession.selectOne("AircraftMapper.xml.flightEnquiry",parameters);*/
         System.out.println(xinXi);
     }
-
 
 }
