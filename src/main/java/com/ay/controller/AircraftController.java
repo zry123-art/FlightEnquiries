@@ -63,7 +63,6 @@ public class AircraftController {
         //取出查询的出发点和到达点
         String chu_fa_dian = aircraft.getTakeOffAirport();
         String dao_da_dian = aircraft.getAerodromeOfLanding();
-
         //加载配置文件
         ApplicationContext applicationContext =
                 new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -100,6 +99,7 @@ public class AircraftController {
         //取出查询的出发点和到达点
         String chu_fa_dian = aircraft.getTakeOffAirport();
         String dao_da_dian = aircraft.getAerodromeOfLanding();
+
         //用mybatis的方法来查询航班信息
         InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
@@ -113,13 +113,13 @@ public class AircraftController {
             model.addAttribute("error_one","非常抱歉!无此航班信息");
         }else {
             //传值到页面
-            model.addAttribute("flightNumber",xinXi.getFlightNumber());
-            model.addAttribute("takeOffTime",xinXi.getTakeOffTime());
-            model.addAttribute("landingTime",xinXi.getLandingTime());
-            model.addAttribute("takeOffAirport",xinXi.getTakeOffAirport());
-            model.addAttribute("aerodromeOfLanding",xinXi.getAerodromeOfLanding());
-            model.addAttribute("price",xinXi.getPrice());
-            model.addAttribute("dateOfDeparture",xinXi.getDateOfDeparture());
+            model.addAttribute("flightNumber",result.getFlightNumber());
+            model.addAttribute("takeOffTime",result.getTakeOffTime());
+            model.addAttribute("landingTime",result.getLandingTime());
+            model.addAttribute("takeOffAirport",result.getTakeOffAirport());
+            model.addAttribute("aerodromeOfLanding",result.getAerodromeOfLanding());
+            model.addAttribute("price",result.getPrice());
+            model.addAttribute("dateOfDeparture",result.getDateOfDeparture());
         }
         return "display";
     }
@@ -144,8 +144,8 @@ public class AircraftController {
         Map<String,Object> parameters=new HashMap<String, Object>();
         parameters.put("0","双流国际机场");
         parameters.put("1","北京国际机场");
-         xinXi = sqlSession.selectOne("AircraftMapper.xml.flightEnquiry",parameters);*/
-        System.out.println(xinXi);
+         xinXi = sqlSession.selectOne("AircraftMapper.xml.flightEnquiry",parameters);
+        System.out.println(xinXi);*/
     }
 
 }

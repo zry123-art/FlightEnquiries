@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="main">
-    <form action="queryResults" method="post">
+    <form action="queryResultsMapper" method="post">
 
         出发城市：<input class="input_1" name="takeOffAirport" type="text" /><br/><br/>
 
